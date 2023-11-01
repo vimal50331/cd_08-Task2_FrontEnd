@@ -1,0 +1,170 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Grocery Delivery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #009688;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        main {
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .grocery-list {
+            background-color: #f3f3f3;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        #new-item {
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        #add-button {
+            padding: 5px 10px;
+            background-color: #009688;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .category-button {
+            margin: 10px;
+            padding: 5px 10px;
+            background-color: #009688;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #009688;
+            color: #fff;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Grocery Delivery System</h1>
+    </header>
+
+    <main>
+        <section class="grocery-list">
+            <h2>My Grocery List</h2>
+            <button class="category-button" onclick="filterItems('all')">All</button>
+            <button class="category-button" onclick="filterItems('vegetables')">Vegetables</button>
+            <button class="category-button" onclick="filterItems('fruits')">Fruits</button>
+            <button class="category-button" onclick="filterItems('dairy')">Dairy</button>
+            <ul id="grocery-items">
+                <li class="vegetables">Apples</li>
+                <li class="fruits">Bananas</li>
+                <li class="dairy">Milk</li>
+                <li class="bread">Bread</li>
+                <li class="vegetables">Carrots</li>
+                <li class="fruits">Oranges</li>
+                <li class="dairy">Cheese</li>
+                <li class="bread">Baguette</li>
+                <li class="vegetables">Spinach</li>
+                <li class="fruits">Strawberries</li>
+                <li class="dairy">Yogurt</li>
+                <li class="bread">Pita Bread</li>
+                <li class="vegetables">Bell Peppers</li>
+                <li class="fruits">Grapes</li>
+                <li class="dairy">Butter</li>
+                <li class="bread">Whole Wheat Bread</li>
+                <li class="vegetables">Cucumbers</li>
+                <li class="fruits">Pineapples</li>
+                <li class="dairy">Eggs</li>
+                <li class="bread">Croissants</li>
+            </ul>
+            <input type="text" id="new-item" placeholder="Add a new item">
+            <button id="add-button" onclick="addItem()">Add</button>
+        </section>
+    </main>
+    
+    <footer>
+        &copy; 2023 Grocery Delivery
+    </footer>
+
+    <script>
+        function filterItems(category) {
+            const items = document.querySelectorAll('li');
+            items.forEach(item => {
+                item.style.display = 'none';
+            });
+            if (category === 'all') {
+                items.forEach(item => {
+                    item.style.display = 'block';
+                });
+            } else {
+                const filteredItems = document.querySelectorAll('.' + category);
+                filteredItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+            }
+        }
+
+        function addItem() {
+            const newItemInput = document.getElementById('new-item');
+            const newItemText = newItemInput.value.trim();
+            if (newItemText) {
+                const category = determineCategory(newItemText);
+                const groceryItems = document.getElementById('grocery-items');
+                const newItem = document.createElement('li');
+                newItem.className = category;
+                newItem.textContent = newItemText;
+                groceryItems.appendChild(newItem);
+                newItemInput.value = '';
+            }
+        }
+
+        function determineCategory(itemName) {
+            // Implement logic to determine the category based on the item name.
+            // You can use a simple approach like checking for specific keywords in the item name.
+            // Example logic is just a placeholder.
+            if (itemName.includes('Milk') || itemName.includes('Cheese') || itemName.includes('Yogurt') || itemName.includes('Butter') || itemName.includes('Eggs')) {
+                return 'dairy';
+            } else if (itemName.includes('Apples') || itemName.includes('Bananas') || itemName.includes('Oranges') || itemName.includes('Strawberries') || itemName.includes('Grapes') || itemName.includes('Pineapples')) {
+                return 'fruits';
+            } else if (itemName.includes('Carrots') || itemName.includes('Spinach') || itemName.includes('Bell Peppers') || itemName.includes('Cucumbers')) {
+                return 'vegetables';
+            } else {
+                return 'other';
+            }
+        }
+    </script>
+</body>
+</html>
